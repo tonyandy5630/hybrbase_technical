@@ -11,11 +11,7 @@ const Page = ({ blok }: Blok) => {
     ));
   }, [blok]);
 
-  return (
-    <main {...storyblokEditable(blok)} className='text-center mt-4'>
-      {blokBody}
-    </main>
-  );
+  return <main {...storyblokEditable(blok)}>{blokBody}</main>;
 };
 
 export default Page;

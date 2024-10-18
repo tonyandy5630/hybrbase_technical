@@ -16,5 +16,5 @@ export interface Block {
 }
 
 export interface Blok {
-  blok: SbBlokData;
+  blok: SbBlokData | any;
 }
