@@ -1,13 +1,8 @@
 import React, { useMemo, useState } from "react";
 import Filters from "../Filters";
-import { useQuery } from "@tanstack/react-query";
-import { getProductsApi } from "@/apis/shop.api";
-import usePagination from "@/hooks/usePagination";
 import Product from "../Product";
 import { Button } from "@/components/ui/button";
-import { Product as ProductType } from "@/types/product";
 import useGetProducts from "@/hooks/shop/useGetProducts";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import LoadingProduct from "../Product/LoadingProduct";
 import { Options } from "@/types/option";
 import ShadSelect from "@/components/Select";
@@ -21,10 +16,9 @@ export default function ProductSection({
   loadBtnTxt,
   sortOptions,
 }: Props) {
-  const { pagination, handlePageChange } = usePagination();
-
+  const [sortBy, setSortBy] = useState("");
   const { productData, isError, isLoading, fetchNextPage, hasNextPage } =
-    useGetProducts(pagination);
+    useGetProducts({ sortBy });
 
   const renderProduct = useMemo(() => {
     const productPages = productData?.pages;
@@ -54,6 +48,10 @@ export default function ProductSection({
     return Array.from({ length: 6 }).map((_, i) => <LoadingProduct key={i} />);
   }, [isLoading]);
 
+  const onSortChange = (e: string) => {
+    setSortBy(e);
+  };
+
   return (
     <div className='w-full h-full py-3 flex justify-center'>
       <div className='w-10/12 gap-3 grid grid-cols-[auto_1fr] max-h-full'>
@@ -71,6 +69,7 @@ export default function ProductSection({
               <ShadSelect
                 options={formatSortOptions}
                 placeholder='Sort'
+                onValueChange={onSortChange}
                 className='w-44'
               />
             </div>

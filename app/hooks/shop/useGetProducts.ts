@@ -1,8 +1,13 @@
 import { getProductsApi } from "@/apis/shop.api";
-import { PaginationType } from "@/types/pagination";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
-export default function useGetProducts(pagination: PaginationType) {
+export default function useGetProducts({
+  sortBy,
+  filter,
+}: {
+  sortBy?: string;
+  filter?: string;
+}) {
   const {
     data: productData,
     isLoading,
@@ -11,8 +16,8 @@ export default function useGetProducts(pagination: PaginationType) {
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery({
-    queryKey: ["/get-products"],
-    queryFn: ({ pageParam = 1 }) => getProductsApi(pageParam),
+    queryKey: ["/get-products", sortBy, filter],
+    queryFn: ({ pageParam }) => getProductsApi(pageParam, filter, sortBy),
     refetchOnWindowFocus: false,
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages) => {

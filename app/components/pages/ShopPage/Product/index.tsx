@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Product as ProductType } from "@/types/product";
+import { vndFormatter } from "@/utils/currency";
 import Image from "next/image";
 
 interface Props {
@@ -29,10 +30,13 @@ export default function Product({ product }: Props) {
         </CardHeader>
         <CardContent className='w-full'>
           <div className='flex justify-between w-full items-center'>
-            <p className='font-bold capitalize'>{product.name}</p>
+            <p className='font-bold capitalize'>
+              {product.name}{" "}
+              <span className='font-normal lowercase'>{`(in stock: ${product.quantity})`}</span>
+            </p>
             <p className='uppercase'>{product.size}</p>
           </div>
-          <p className='font-bold'>{product.price}</p>
+          <p className='font-bold'>{vndFormatter.format(product.price)}</p>
         </CardContent>
       </Card>
     </div>
