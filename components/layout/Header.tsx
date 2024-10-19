@@ -1,4 +1,4 @@
-import { baseStoryblokApi, token, version } from "@/constants/storyblok";
+"use client";
 import React, { PropsWithChildren, useMemo } from "react";
 
 interface Props extends PropsWithChildren {
@@ -6,10 +6,10 @@ interface Props extends PropsWithChildren {
   title: string;
 }
 
-export default async function Header({ children, navItems, title }: Props) {
+export default function Header({ children, navItems, title }: Props) {
   const navs = useMemo(() => {
     return navItems.map((item) => (
-      <li>
+      <li key={item.url_text}>
         <a href={"/" + item.url_text} key={item._uid}>
           {item.text}
         </a>

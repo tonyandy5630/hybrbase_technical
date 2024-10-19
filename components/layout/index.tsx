@@ -1,11 +1,9 @@
 import React, { PropsWithChildren } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import { getStoryblokApi, StoryblokStory } from "@storyblok/react/rsc";
+import { getStoryblokApi } from "@storyblok/react/rsc";
 
 const getStoryblok = async () => {
-  let sbParams: any = { version: "draft" };
-
   const storyblokApi = getStoryblokApi();
 
   const data = await storyblokApi.get(

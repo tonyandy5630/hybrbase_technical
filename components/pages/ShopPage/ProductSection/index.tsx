@@ -10,7 +10,7 @@ import { GridIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import PageContainer from "@/components/PageContainer";
 
 interface Props {
-  filters: Object;
+  filters: any;
   loadBtnTxt: string;
   sortOptions: Array<any>;
 }
@@ -62,7 +62,7 @@ export default function ProductSection({
     return Array.from({ length: 6 }).map((_, i) => (
       <LoadingProduct key={i} isDisplayGrid={isGrid} />
     ));
-  }, [isLoading, isGrid]);
+  }, [isGrid]);
 
   const handleSortChange = (e: string) => {
     setSortBy(e);
