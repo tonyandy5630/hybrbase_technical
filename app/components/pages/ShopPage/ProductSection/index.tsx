@@ -9,11 +9,18 @@ import { Product as ProductType } from "@/types/product";
 import useGetProducts from "@/hooks/shop/useGetProducts";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import LoadingProduct from "../Product/LoadingProduct";
+import { Options } from "@/types/option";
+import ShadSelect from "@/components/Select";
 interface Props {
   filters: Array<any>;
   loadBtnTxt: string;
+  sortOptions: Array<any>;
 }
-export default function ProductSection({ filters, loadBtnTxt }: Props) {
+export default function ProductSection({
+  filters,
+  loadBtnTxt,
+  sortOptions,
+}: Props) {
   const { pagination, handlePageChange } = usePagination();
 
   const { productData, isError, isLoading, fetchNextPage, hasNextPage } =
@@ -31,6 +38,18 @@ export default function ProductSection({ filters, loadBtnTxt }: Props) {
     ));
   }, [productData?.pages]);
 
+  const formatSortOptions: Array<Options<string>> = useMemo(() => {
+    const opts: Array<Options<string>> = [];
+    if (!sortOptions) return opts;
+    sortOptions.map((item) => {
+      opts.push({
+        label: item,
+        value: item,
+      });
+    });
+    return opts;
+  }, [sortOptions]);
+
   const loadingProducts = useMemo(() => {
     return Array.from({ length: 6 }).map((_, i) => <LoadingProduct key={i} />);
   }, [isLoading]);
@@ -47,7 +66,16 @@ export default function ProductSection({ filters, loadBtnTxt }: Props) {
           ) : (
             <></>
           )}
-          <div>{renderProduct}</div>
+          <div>
+            <div className='w-full flex justify-end items-center pr-6'>
+              <ShadSelect
+                options={formatSortOptions}
+                placeholder='Sort'
+                className='w-44'
+              />
+            </div>
+            <div>{renderProduct}</div>
+          </div>
           {isLoading ? (
             <div className='w-full grid grid-cols-3'>{loadingProducts}</div>
           ) : (
