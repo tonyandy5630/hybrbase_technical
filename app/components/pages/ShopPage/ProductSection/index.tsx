@@ -8,23 +8,16 @@ import { Button } from "@/components/ui/button";
 import { Product as ProductType } from "@/types/product";
 import useGetProducts from "@/hooks/shop/useGetProducts";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import LoadingProduct from "../Product/LoadingProduct";
 interface Props {
   filters: Array<any>;
   loadBtnTxt: string;
 }
 export default function ProductSection({ filters, loadBtnTxt }: Props) {
   const { pagination, handlePageChange } = usePagination();
-  const [currentProducts, setCurrentProducts] = useState<Array<ProductType>>(
-    []
-  );
-  const {
-    productData,
-    isError,
-    isFetchingNextPage,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-  } = useGetProducts(pagination);
+
+  const { productData, isError, isLoading, fetchNextPage, hasNextPage } =
+    useGetProducts(pagination);
 
   const renderProduct = useMemo(() => {
     const productPages = productData?.pages;
@@ -36,14 +29,30 @@ export default function ProductSection({ filters, loadBtnTxt }: Props) {
         ))}
       </div>
     ));
-  }, [productData?.pages, setCurrentProducts]);
+  }, [productData?.pages]);
+
+  const loadingProducts = useMemo(() => {
+    return Array.from({ length: 6 }).map((_, i) => <LoadingProduct key={i} />);
+  }, [isLoading]);
 
   return (
     <div className='w-full h-full py-3 flex justify-center'>
       <div className='w-10/12 gap-3 grid grid-cols-[auto_1fr] max-h-full'>
         <Filters filters={filters} />
         <div>
+          {isError ? (
+            <div className='text-red-400 w-full text-center'>
+              Something went wrong
+            </div>
+          ) : (
+            <></>
+          )}
           <div>{renderProduct}</div>
+          {isLoading ? (
+            <div className='w-full grid grid-cols-3'>{loadingProducts}</div>
+          ) : (
+            <></>
+          )}
           <div className='w-full flex items-center justify-center p-3'>
             <Button
               variant='outline'

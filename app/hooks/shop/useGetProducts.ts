@@ -22,9 +22,8 @@ export default function useGetProducts(pagination: PaginationType) {
 
   return {
     productData,
-    isLoading,
+    isLoading: isFetchingNextPage || isLoading,
     isError,
-    isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
   };
