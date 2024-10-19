@@ -2,10 +2,11 @@ import axios, { AxiosError, HttpStatusCode, type AxiosInstance } from "axios";
 
 class Http {
   instance: AxiosInstance;
-
-  constructor(api: string) {
+  baseApi: string;
+  constructor() {
+    this.baseApi = process.env.NEXT_PUBLIC_MOCK_API ?? "";
     this.instance = axios.create({
-      baseURL: api,
+      baseURL: this.baseApi,
       timeout: 30000,
       headers: {
         "Content-Type": "application/json",
@@ -26,5 +27,5 @@ class Http {
     );
   }
 }
-
-export default Http;
+const http = new Http().instance;
+export default http;

@@ -7,14 +7,14 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const { data } = await fetchData();
-  return (
-    <div>
-      <StoryblokStory story={data.story} />
-    </div>
-  );
+  return <StoryblokStory story={data.story} />;
 }
 
 export async function fetchData() {
   const storyblokApi = getStoryblokApi();
-  return storyblokApi.get(`cdn/stories/shop-page`, { version: "draft" });
+  return storyblokApi.get(
+    `cdn/stories/shop-page`,
+    { version: "draft" },
+    { cache: "no-store" }
+  );
 }

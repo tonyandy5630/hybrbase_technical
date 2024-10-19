@@ -17,7 +17,7 @@ export default async function Header({ children, navItems, title }: Props) {
     ));
   }, [navItems]);
   return (
-    <header className='sticky top-0 w-full flex justify-center items-center h-20 bg-black text-white'>
+    <header className='sticky top-0 w-full flex justify-center items-center h-20 z-50 bg-black text-white'>
       <div className='w-10/12 flex justify-start items-center gap-3'>
         <h1 className='capitalize font-bold text-2xl'>{title}</h1>
         <ul className='flex justify-between items-center gap-3'>{navs}</ul>

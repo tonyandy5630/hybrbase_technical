@@ -1,6 +1,1 @@
-import { baseStoryblokApi, token, version } from "@/constants/storyblok";
-
-export const STORYBLOK_API = (page: string) =>
-  `/${page}?version=${version}&token=${token}`;
-
-export const SERVER_API = "";
+export const SERVER_API = process.env.NEXT_PUBLIC_MOCK_API;

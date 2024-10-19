@@ -1,8 +1,8 @@
-import { baseStoryblokApi } from "../constants/storyblok";
-import Http from "../utils/http";
-import { STORYBLOK_API } from "./url";
+import { ResponseAPI } from "@/types";
+import http from "../utils/http";
+import { GET_PRODUCT_API_URL } from "./url/shop";
+import { Product } from "@/types/product";
+import { PaginationType } from "@/types/pagination";
 
-const storyBlokHttp = new Http(baseStoryblokApi).instance;
-
-export const getStoryblokShopPage = () =>
-  storyBlokHttp.get(STORYBLOK_API("shop-page"));
+export const getProductsApi = (index: number) =>
+  http.get<Array<Product>>(GET_PRODUCT_API_URL + `?page=${index}&limit=${6}`);
