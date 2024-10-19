@@ -7,6 +7,7 @@ import { Product } from "@/types/product";
 import { vndFormatter } from "@/utils/currency";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import LoadingProduct from "./LoadingProduct";
 
 interface Props {
   productId: string;
@@ -22,7 +23,17 @@ export default function ProductDetailPage({ productId }: Props) {
   }, [productData?.data]);
 
   if (isLoading) {
-    return <>Loading...</>;
+    return <LoadingProduct />;
+  }
+
+  if (isError) {
+    return (
+      <PageContainer>
+        <div className='page-inset flex justify-center items-center '>
+          <h1 className='text-4xl text-red-500'>Something went wrong</h1>
+        </div>
+      </PageContainer>
+    );
   }
 
   return (
@@ -56,7 +67,7 @@ export default function ProductDetailPage({ productId }: Props) {
                 <span className='font-bold'>{product.quantity}</span>
               </div>
               <div>
-                <Button>Add to Cart</Button>
+                <Button disabled>Add to Cart</Button>
               </div>
             </div>
           </>
