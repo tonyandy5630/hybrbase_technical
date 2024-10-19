@@ -1,7 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
-
 First, run the development server:
 
 ```bash
@@ -13,24 +10,44 @@ pnpm dev
 # or
 bun dev
 ```
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## What I've accommplished in the last 12 hours:
+* Learn about Storyblok(I've spent half of the time exploring Storyblok. Headless CMS is a whole new world to me.)
+* Intergrate Storyblok to NextJS
+* Grid/List Products Display
+* Sort in ascending order
+* Filter products
+* Infinite scrolls
+* Product Details Page
 
-To learn more about Next.js, take a look at the following resources:
+## Features that I've yet to accomplish:
+* Shopping Cart
+* Deploying
+* CI Pipeline
+* Checkout
+* Responsiveness
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Web screenshots
+* Home Grid View
+![homepage](https://github.com/user-attachments/assets/c7979dcb-c05a-4a49-8278-d57ca49998ab)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* Home List View
+![home-page-list-view](https://github.com/user-attachments/assets/a14e1a6c-9cf0-43d7-bab1-1daa4af97d9c)
 
-## Deploy on Vercel
+* Product Detail Page
+![product-details](https://github.com/user-attachments/assets/e812370d-5260-4e0d-a563-dbebfa81540e)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Sorted Page
+![sort-asc-price](https://github.com/user-attachments/assets/e021b53d-30bd-454f-a515-9b446af938e1)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Filtered Page
+![pants-filter](https://github.com/user-attachments/assets/9bd28a45-a97b-4015-86f4-f8ba5cb803b0)
+
+
+
+
+
+
