@@ -64,7 +64,7 @@ export default function ProductDetailPage({ productId }: Props) {
               </div>
               <div className='flex items-center gap-3'>
                 Stock:
-                <span className='font-bold'>{product.quantity}</span>
+                <span className='font-bold text-xl'>{product.quantity}</span>
               </div>
               <div>
                 <Button disabled>Add to Cart</Button>
