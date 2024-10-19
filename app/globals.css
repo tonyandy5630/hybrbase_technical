@@ -20,6 +20,10 @@ body {
   .product-grid {
     @apply w-full grid grid-cols-3;
   }
+
+  .page-inset {
+    @apply w-10/12;
+  }
 }
 
 @layer base {

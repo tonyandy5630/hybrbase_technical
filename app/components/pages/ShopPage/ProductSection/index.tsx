@@ -7,9 +7,10 @@ import LoadingProduct from "../Product/LoadingProduct";
 import { Options } from "@/types/option";
 import ShadSelect from "@/components/Select";
 import { GridIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
+import PageContainer from "@/components/PageContainer";
 
 interface Props {
-  filters: Array<any>;
+  filters: Object;
   loadBtnTxt: string;
   sortOptions: Array<any>;
 }
@@ -80,8 +81,8 @@ export default function ProductSection({
   };
 
   return (
-    <div className='w-full h-full py-3 flex justify-center'>
-      <div className='w-10/12 gap-3 grid grid-cols-[auto_1fr] max-h-full'>
+    <PageContainer>
+      <div className='page-inset gap-3 grid grid-cols-[auto_1fr] max-h-full'>
         <Filters
           onReset={handleResetFilter}
           filters={filters}
@@ -129,6 +130,6 @@ export default function ProductSection({
           </div>
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 }

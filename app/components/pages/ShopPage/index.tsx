@@ -11,7 +11,7 @@ const ShopPage = ({ blok }: Blok) => {
     <div {...storyblokEditable(blok)} className='min-h-full'>
       <Hero content={hero_section[0]} />
       <ProductSection
-        filters={filter_section[0].filter_options}
+        filters={filter_section}
         loadBtnTxt={more_button_text}
         sortOptions={product_section[0].sort_options}
       />

@@ -1,7 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Product as ProductType } from "@/types/product";
 import { vndFormatter } from "@/utils/currency";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface Props {
   product: ProductType;
@@ -9,10 +12,24 @@ interface Props {
 }
 
 export default function Product({ product, isDisplayGrid }: Props) {
+  const [showOverlay, setShowOverlay] = useState(false);
+  const router = useRouter();
+  const handleToggleOverlay = () => {
+    setShowOverlay((prev) => !prev);
+  };
+
+  const handleNavigateToDetail = (id: string) => {
+    router.push("/products/" + id);
+  };
   if (isDisplayGrid) {
     return (
-      <div className='p-3'>
-        <Card className='flex flex-col justify-center items-center'>
+      <div
+        className='p-3'
+        onMouseEnter={() => handleToggleOverlay()}
+        onMouseLeave={() => handleToggleOverlay()}
+        onClick={() => handleNavigateToDetail(product.id)}
+      >
+        <Card className='flex flex-col justify-center items-center relative cursor-pointer'>
           <CardHeader className='w-full h-80'>
             <Image
               width={1000}
@@ -33,6 +50,15 @@ export default function Product({ product, isDisplayGrid }: Props) {
             </div>
             <p className='font-bold'>{vndFormatter.format(product.price)}</p>
           </CardContent>
+          {showOverlay ? (
+            <div className='bg-black/50 inset-0 absolute transition-all duration-150 ease-in flex justify-center items-center'>
+              <Button className='bg-transparent text-white shadow-none text-2xl'>
+                Details
+              </Button>
+            </div>
+          ) : (
+            <></>
+          )}
         </Card>
       </div>
     );

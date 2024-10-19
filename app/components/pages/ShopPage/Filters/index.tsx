@@ -5,7 +5,7 @@ import { Options } from "@/types/option";
 import React, { useMemo, useState } from "react";
 
 interface Props {
-  filters: Array<any>;
+  filters: any;
   onValueChange: (value: string) => void;
   value: string;
   onReset: () => void;
@@ -18,7 +18,7 @@ export default function Filters({
   value,
 }: Props) {
   const filterOptions: Array<Options<string>> = useMemo(() => {
-    const opts = filters.map((item) => ({
+    const opts = (filters[1].filter_options as Array<any>).map((item) => ({
       label: item,
       value: (item as string).toLowerCase(),
     }));
@@ -34,12 +34,12 @@ export default function Filters({
     <div className='flex flex-col h-full justify-start items-start w-56'>
       <div className='flex flex-col justify-between'>
         <div className='flex justify-between items-center'>
-          <h4 className='text-3xl'>Filters</h4>
+          <h4 className='text-3xl'>{filters[0].title_text}</h4>
           <Button variant='ghost' onClick={onReset}>
             Reset
           </Button>
         </div>
-        <p className='font-bold mb-3'>Categories</p>
+        <p className='font-bold mb-3'>{filters[1].filter_category}</p>
         <div className='flex justify-between items-start flex-col gap-2'>
           <ShadRadioGroup
             value={value}
