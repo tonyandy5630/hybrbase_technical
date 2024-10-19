@@ -9,5 +9,5 @@ export const getProductsApi = (
 ) =>
   http.get<Array<Product>>(
     GET_PRODUCT_API_URL +
-      `?page=${index}&limit=${6}&sortBy=${sortBy}&order=asc&field_name=${filter}`
+      `?page=${index}&limit=${6}&sortBy=${sortBy}&order=asc&productType=${filter}`
   );

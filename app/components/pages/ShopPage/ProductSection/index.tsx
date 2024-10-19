@@ -6,31 +6,39 @@ import useGetProducts from "@/hooks/shop/useGetProducts";
 import LoadingProduct from "../Product/LoadingProduct";
 import { Options } from "@/types/option";
 import ShadSelect from "@/components/Select";
+import { GridIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
+
 interface Props {
   filters: Array<any>;
   loadBtnTxt: string;
   sortOptions: Array<any>;
 }
+
 export default function ProductSection({
   filters,
   loadBtnTxt,
   sortOptions,
 }: Props) {
-  const [sortBy, setSortBy] = useState("");
+  const [isGrid, setIsGrid] = useState(true);
+  const [sortBy, setSortBy] = useState(""); //* state for sorting
+  const [productTypeFilter, setProductTypeFilter] = useState(""); //* state for product filtering
   const { productData, isError, isLoading, fetchNextPage, hasNextPage } =
-    useGetProducts({ sortBy });
+    useGetProducts({ sortBy, filter: productTypeFilter }); //* fetch product
 
   const renderProduct = useMemo(() => {
     const productPages = productData?.pages;
     if (!productPages) return [];
     return productPages.map((page, index) => (
-      <div className='w-full grid grid-cols-3' key={index}>
+      <div
+        className={`${isGrid ? "product-grid" : "product-list"}`}
+        key={index}
+      >
         {page.data.map((product) => (
-          <Product key={product.id} product={product} />
+          <Product key={product.id} product={product} isDisplayGrid={isGrid} />
         ))}
       </div>
     ));
-  }, [productData?.pages]);
+  }, [productData?.pages, isGrid]);
 
   const formatSortOptions: Array<Options<string>> = useMemo(() => {
     const opts: Array<Options<string>> = [];
@@ -41,21 +49,45 @@ export default function ProductSection({
         value: item,
       });
     });
+
+    opts.push({
+      label: "No sort",
+      value: "|",
+    });
     return opts;
   }, [sortOptions]);
 
   const loadingProducts = useMemo(() => {
-    return Array.from({ length: 6 }).map((_, i) => <LoadingProduct key={i} />);
-  }, [isLoading]);
+    return Array.from({ length: 6 }).map((_, i) => (
+      <LoadingProduct key={i} isDisplayGrid={isGrid} />
+    ));
+  }, [isLoading, isGrid]);
 
-  const onSortChange = (e: string) => {
+  const handleSortChange = (e: string) => {
     setSortBy(e);
+  };
+
+  const handleFilterProductType = (e: string) => {
+    setProductTypeFilter(e);
+  };
+
+  const handleResetFilter = () => {
+    setProductTypeFilter("");
+  };
+
+  const handleGridChange = () => {
+    setIsGrid((prev) => !prev);
   };
 
   return (
     <div className='w-full h-full py-3 flex justify-center'>
       <div className='w-10/12 gap-3 grid grid-cols-[auto_1fr] max-h-full'>
-        <Filters filters={filters} />
+        <Filters
+          onReset={handleResetFilter}
+          filters={filters}
+          onValueChange={handleFilterProductType}
+          value={productTypeFilter}
+        />
         <div>
           {isError ? (
             <div className='text-red-400 w-full text-center'>
@@ -65,18 +97,23 @@ export default function ProductSection({
             <></>
           )}
           <div>
-            <div className='w-full flex justify-end items-center pr-6'>
+            <div className='w-full flex justify-end items-center pr-6 gap-1'>
               <ShadSelect
                 options={formatSortOptions}
                 placeholder='Sort'
-                onValueChange={onSortChange}
+                onValueChange={handleSortChange}
                 className='w-44'
               />
+              <Button onClick={handleGridChange} variant='outline'>
+                {isGrid ? <HamburgerMenuIcon /> : <GridIcon />}
+              </Button>
             </div>
             <div>{renderProduct}</div>
           </div>
           {isLoading ? (
-            <div className='w-full grid grid-cols-3'>{loadingProducts}</div>
+            <div className={`${isGrid ? "product-grid" : "product-list"}`}>
+              {loadingProducts}
+            </div>
           ) : (
             <></>
           )}

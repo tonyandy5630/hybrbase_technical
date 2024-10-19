@@ -6,4 +6,5 @@ export interface Product {
   productType: string;
   description: string;
   size: string;
+  imageUrl: string;
 }

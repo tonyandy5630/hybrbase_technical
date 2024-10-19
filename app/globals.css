@@ -12,6 +12,16 @@ body {
   }
 }
 
+@layer components {
+  .product-list {
+    @apply flex flex-col justify-center items-start gap-1;
+  }
+
+  .product-grid {
+    @apply w-full grid grid-cols-3;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
